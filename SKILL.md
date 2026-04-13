@@ -24,6 +24,9 @@ If the project is greenfield or has little existing Daml, use these defaults:
 - name result records `<Template>_<Choice>Result`
 - add interfaces only after two or more templates clearly need the same contract API
 - start every non-trivial template with a matching `script do` example or test
+- verify local compiler/tooling syntax before writing a full module: check `dpm --version`, `dpm damlc --help`, and lint a tiny skeleton or first draft immediately
+- treat Daml surface syntax as SDK-sensitive when no neighboring code exists; do not assume syntax from memory for list patterns, choice declarations, or other niceties unless the local toolchain accepts it
+- default to the conservative syntax subset until lint proves otherwise: use plain `choice` for consuming choices, `nonconsuming choice` only when required, `::` for list cons/patterns, and avoid record `deriving` clauses or other surface sugar not already present in local code; introduce niceties one at a time and rerun lint immediately
 
 ## Terminology
 
@@ -198,6 +201,7 @@ Prefer `dpm` tooling.
 
 Run lint for every `.daml` file you edit.
 
+- In greenfield or mixed-version repos, lint the first minimal template or choice skeleton early to catch parser or SDK-syntax differences before deeper modeling work.
 - Use `dpm damlc lint path/to/File.daml` on each changed Daml file before finishing.
 - Use `dpm build` or `dpm test` for package-level checking after lint passes.
 - If `dpm` is unavailable but legacy `daml` tooling exists, use `daml damlc lint`.
