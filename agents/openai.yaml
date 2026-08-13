@@ -1,4 +1,4 @@
 interface:
   display_name: "Daml"
-  short_description: "Author secure Daml templates"
-  default_prompt: "Use $daml to design and implement Daml templates and contract workflows with correct authorization, privacy, linting, and tests."
+  short_description: "Build and review correct Daml models"
+  default_prompt: "Use $daml to implement or review this Daml/Canton change, including relevant semantic, upgrade, and verification rules."
