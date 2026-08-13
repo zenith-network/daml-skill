@@ -1,8 +1,16 @@
 # External Calls (Experimental)
 
-Use only when a deterministic external read/attestation must gate consequences in the same transaction. Otherwise use an off-ledger query or ledger evidence. Never use for remote effects: calls may repeat and Daml rollback cannot undo them. Instead create a ledger intent, act idempotently after commit, then record completion through an authorized choice.
+Use only when deterministic external read/attestation must gate the same transaction; otherwise query off-ledger or use ledger evidence. Never perform remote effects: calls may repeat and rollback cannot undo them. Instead commit an intent, act idempotently after commit, then record completion.
 
-Experimental: requires `DA.ExternalCall`, LF `2.dev`, compatible dev protocol/runtime, and compatible service configuration on relevant confirming participants. Verify the pinned stack with a minimal call; never enable dev LF/protocol implicitly.
+Requires `DA.ExternalCall`, LF `2.dev`, matching dev protocol/runtime, and service configuration on relevant confirming participants. Verify the pinned stack with a minimal call; never enable dev LF/protocol implicitly.
+
+## Execution model
+
+`externalCall` is Daml's synchronous bridge to an off-ledger external-call server (Canton: extension service):
+
+`choice → participant → configured service → outputHex → choice resumes`
+
+During interpretation, the participant selects service/operation via IDs, sends config/input, and waits; `externalCall` then yields the server response as `outputHex`. Decode/validate and continue the same transaction. Failures reject the `Update`, not return `Text`; responsible confirmers may repeat the call to compare output.
 
 ## Implement
 
