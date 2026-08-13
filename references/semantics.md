@@ -1,6 +1,6 @@
 # Daml Semantics
 
-Validated 2026-08-13. Sources: [authorization](https://docs.canton.network/appdev/modules/m3-authorization), [ledger model](https://docs.canton.network/overview/reference/ledger-model-detailed), [language](https://docs.canton.network/appdev/reference/daml-language-reference), [keys](https://docs.canton.network/appdev/modules/m3-contract-keys), [disclosure](https://docs.canton.network/appdev/deep-dives/explicit-contract-disclosure), [time](https://docs.canton.network/appdev/modules/m3-working-with-time).
+Validated 2026-08-13. Sources: [templates](https://docs.canton.network/appdev/modules/m3-contract-templates), [choices](https://docs.canton.network/appdev/modules/m3-choices), [authorization](https://docs.canton.network/appdev/modules/m3-authorization), [ledger model](https://docs.canton.network/overview/reference/ledger-model-detailed), [language](https://docs.canton.network/appdev/reference/daml-language-reference), [architecture](https://docs.canton.network/overview/learn/architecture), [EVM orientation](https://docs.canton.network/appdev/modules/m2-concept-translation), [reassignment](https://docs.canton.network/overview/reference/reassignment-protocol), [keys](https://docs.canton.network/appdev/modules/m3-contract-keys), [disclosure](https://docs.canton.network/appdev/deep-dives/explicit-contract-disclosure), [time](https://docs.canton.network/appdev/modules/m3-working-with-time).
 
 ## Authorization/privacy
 
