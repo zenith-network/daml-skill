@@ -2,7 +2,7 @@
 
 Validated 2026-08-13: [SCU reference](https://docs.canton.network/appdev/deep-dives/smart-contract-upgrading-reference), [overview](https://docs.canton.network/appdev/modules/m6-upgrade-compatibility); Daml [`70dfb2e`](https://github.com/digital-asset/daml/tree/70dfb2ef25914427ed8f02b7b3500055b5d3b711) (`TypeChecker/Upgrade.hs`, `DamlcUpgrades.hs`); Canton [`eaa9e7a`](https://github.com/digital-asset/canton/tree/eaa9e7a4bf48793acb35aba270b85a970afe6006) (`validation/Upgrading.scala`, `speedy/SBuiltinFun.scala`).
 
-Build/check pair: identical package `name`; strictly higher numeric version; current compiler requires same LF major and nondecreasing LF minor; successor `daml.yaml` sets `upgrades: OLD.dar`. Keep version segment count fixed (`X.Y.Z`): compiler zero-padding and Canton sequence ordering differ. Docs describe neighboring uploaded versions; pinned Canton source checks adjacent target-vetted same-name packages during vetting. Target participant state is authoritative.
+Build/check pair: identical package `name`; strictly higher numeric version; upgrade-supporting LF versions with nondecreasing successor LF; successor `daml.yaml` sets `upgrades: OLD.dar`. Keep version segment count fixed (`X.Y.Z`): compiler zero-padding and Canton sequence ordering differ. Canton checks adjacent target-vetted same-name packages during vetting; target participant state is authoritative.
 
 ## Old→new matrix
 
@@ -10,7 +10,7 @@ Build/check pair: identical package `name`; strictly higher numeric version; cur
 | --- | --- | --- |
 | module/template/serializable data/choice | retain old identities; add | remove/rename/move (rename/move=delete+add) |
 | template payload/record/choice args/inline-record variant payload | retain field names/order; recursively compatible old types; append trailing normalized outer `Optional _` | remove even Optional; rename/reorder/insert; non-Optional append; incompatible old field |
-| choice | add; recursively compatible arg/result; body may change; controller/observer/authorizer expressions may change with warning | remove/rename/incompatible schema. Treat consumption mode as fixed: pinned validators do not compare it, but changing it breaks archival/privacy semantics and may fail elsewhere. |
+| choice | add; recursively compatible arg/result; body may change; controller/observer/authorizer expressions may change with warning | remove/rename/incompatible schema. Do not change consumption mode: documented unsupported; pinned validators do not compare it; change breaks archival/privacy semantics. |
 | template expressions | signatory/observer/`ensure` may change (warning) | every old contract must still pass `ensure` and recompute identical metadata at runtime |
 | variant | retain constructor names/order+compatible old payload; append constructors (new payload arbitrary) | remove/rename/reorder/insert; incompatible old payload; nullary gains payload |
 | enum | append at end | remove/rename/reorder/insert; enum↔variant |
@@ -36,4 +36,5 @@ Conservative rule: retain predecessor non-utility dependencies; pinned validator
 - Run compiler + participant checks on complete old/new/shared DAR closure: [tooling.md](tooling.md).
 - Promote expression/dependency/extraction warnings unless explicitly reviewed.
 - Test old contract→new target; new→old with each Optional `None`/`Some`; new constructors; choice args/results; all choices/interfaces; metadata/key/maintainers/ensure; package selection/vetting.
+- Do not create speculative V1/V2 modules or package lineage; use SCU only for a real upgrade requirement and established rollout framework.
 - Breaking schema: new package name/template + authorized atomic archive/create migration. Preserve consent/linkage; test mixed population. Never use `ensure False` until all old contracts are migrated/archived: it can disable implicit Archive and strand them.

@@ -1,4 +1,4 @@
 interface:
   display_name: "Daml"
-  short_description: "Build and review correct Daml models"
-  default_prompt: "Use $daml to implement or review this Daml/Canton change, including relevant semantic, upgrade, and verification rules."
+  short_description: "Build and review secure Daml models"
+  default_prompt: "Use $daml to design, implement, review, or diagnose this Daml model or change, checking authorization, privacy, linting, tests, and upgrades when relevant."
