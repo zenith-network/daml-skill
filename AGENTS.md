@@ -48,14 +48,11 @@ After implementation, cleanup, exact candidate staging, and normal checks; befor
 4. Fix validated blockers; clean/restage/recheck. Any material content fix→rerun both reviewers on the revised candidate. Do not finish/commit/push with a validated blocker or missing reviewer. If review cannot run, report blocked.
 5. Handoff: both review outcomes; accepted/rejected findings; exact validation.
 
-## Workspace cleanliness
+## Workspace Tidiness
 
-- Before the first edit, snapshot `git status --short`, staged/unstaged diffs, and untracked paths; classify path/hunks as pre-existing user work or task-owned.
-- Remove only task-created garbage: probes, caches, logs, debug residue, editor files, secrets, and generated artifacts not required as deliverables/fixtures. Preserve unrelated user work.
-- Build one prospective commit containing only task-owned hunks. Preserve the pre-existing index/worktree; stage explicit paths/hunks (`git add -p` when mixed), never sweep with `git add .`/`git add -A`. If safe isolation is impossible, stop and report blocked.
-- Before review, inspect `git diff --cached --check`, `git diff --cached --stat`, and the full staged diff; verify scope and no secrets, temporary files, or unrelated edits. Record the candidate tree with `git write-tree`.
-- After both reviewers pass, commit every intentional task change with a focused message before handoff; do not mutate the candidate. Verify `HEAD^{tree}` equals the reviewed tree. Hook/content drift→recheck, rerun both reviewers, then fix/amend.
-- After commit, require no uncommitted current-task changes; report any remaining unrelated dirt. Commit does not authorize push; push only when requested or required by the authorized workflow.
+Before handing work back, check the workspace for uncommitted changes. Commit and push intentional changes at the end of the turn.
+
+Do not blindly commit everything. Review every changed, staged, and untracked file consciously, and leave out temp files, generated scratch output, or unrelated local changes.
 
 ## Edit gate
 
