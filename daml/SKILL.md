@@ -1,6 +1,6 @@
 ---
 name: daml
-description: Write, change, review, lint, test, and secure Daml code in Daml/Canton codebases. Use when working in `.daml` files or with templates, contracts, choices, interfaces, contract keys including non-unique keys, Daml exceptions/failure behavior, authorization and contract visibility/privacy, ledger-time logic, explicit contract disclosure workflows, Daml package upgrades and upgrade-safe changes, Daml Script tests, or experimental `DA.ExternalCall.externalCall`.
+description: Write, change, review, lint, test, and secure Daml code in Daml/Canton codebases. Use when working in `.daml` files or with templates, contracts, choices, interfaces, CIP-0056/Canton Network Token Standard holdings, transfer instructions, or allocations, contract keys including non-unique keys, Daml exceptions/failure behavior, authorization and contract visibility/privacy, ledger-time logic, explicit contract disclosure workflows, Daml package upgrades and upgrade-safe changes, Daml Script tests, or experimental `DA.ExternalCall.externalCall`.
 ---
 
 # Daml
@@ -13,6 +13,7 @@ description: Write, change, review, lint, test, and secure Daml code in Daml/Can
 4. Load only applicable references, completely:
    - Any Daml model/review, terminology/EVM comparison, or Daml Script/`submit`: [semantics.md](references/semantics.md)
    - Versioned package, `upgrades`, DAR compatibility/selection: [upgrades.md](references/upgrades.md) + semantics
+   - CIP-0056/Canton Network Token Standard registry, wallet/app, `Holding`, `TransferInstruction`, or `Allocation`: [token-standard.md](references/token-standard.md) + semantics; add design-patterns for custom staged/locking workflows
    - Any `external_call` request or `externalCall` occurrence: [external-call.md](references/external-call.md) + semantics; mandatory, volatile/dev-only
    - Consent/role/preauthorization/delegation/credential/locking/staged/multiparty design: [design-patterns.md](references/design-patterns.md)
    - Change/build/test/lint/upgrade check: [tooling.md](references/tooling.md)
